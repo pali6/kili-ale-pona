@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { asset } from '$app/paths';
-	import { onMount } from 'svelte';
 	import { fruits, type Fruit } from '$lib/fruits';
 	import {
 		SLOTS,
@@ -27,9 +26,9 @@
 
 	let hovered = $state<Fruit | null>(null);
 
-	let scale = $state(1);
-	const fit = () => (scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080));
-	onMount(fit);
+	let vw = $state(0);
+	let vh = $state(0);
+	const scale = $derived(vw && vh ? Math.min(vw / 1920, vh / 1080) : 1);
 
 	const usedIds = $derived(new Set((mine.filter(Boolean) as Fruit[]).map((f) => f.id)));
 	const mineAll = $derived([
@@ -84,8 +83,8 @@
 	const slug = (id: string) => id.replace(/ /g, '-');
 </script>
 
-<svelte:head><title>kili</title></svelte:head>
-<svelte:window onresize={fit} />
+<svelte:head><title>kili ale pona</title></svelte:head>
+<svelte:window bind:innerWidth={vw} bind:innerHeight={vh} />
 
 {#snippet fruitIcon(f: Fruit)}
 	<span class="ficon"
@@ -94,7 +93,7 @@
 {/snippet}
 
 <div class="viewport">
-	<div class="stage" style="transform: scale({scale})">
+	<div class="stage" style="--scale: {scale}">
 		{#if scene === 'intro'}
 			<div class="bg"><img src={img('bg-judges.png')} alt="" /></div>
 			{#each judgeKeys as key, n (key)}
@@ -243,14 +242,16 @@
 	.viewport {
 		position: fixed;
 		inset: 0;
-		display: grid;
-		place-items: center;
+		overflow: hidden;
 	}
 	.stage {
-		position: relative;
+		position: absolute;
+		left: 50%;
+		top: 50%;
 		width: 1920px;
 		height: 1080px;
-		flex: none;
+		transform: translate(-50%, -50%) scale(var(--scale, 1));
+		transform-origin: center center;
 		font-family: system-ui, sans-serif;
 		color: black;
 	}
