@@ -53,7 +53,19 @@
 		const a = aiFill(task, 10);
 		foe = empty();
 		a.slice(0, SLOTS).forEach((f, i) => (foe[i] = f));
-		mineSabotaged = pick(fruits); // TODO: smarter AI sabotage
+
+		const unusedByFoe = fruits.filter((f) => !foe.some((x) => x && x.id === f.id));
+		let worstScore = Infinity;
+		let bestSabotagePick: Fruit | null = null;
+		for (let i = 0; i < 5; i++) {
+			mineSabotaged = pick(unusedByFoe);
+			const trialScore = score([...mineAll, mineSabotaged], task).total;
+			if (trialScore < worstScore) {
+				worstScore = trialScore;
+				bestSabotagePick = mineSabotaged;
+			}
+		}
+		mineSabotaged = bestSabotagePick;
 		scene = 'sabotage';
 	}
 
