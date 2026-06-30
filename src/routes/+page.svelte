@@ -93,15 +93,31 @@
 
 	const img = (p: string) => encodeURI(asset(`/assets/${p}`));
 	const slug = (id: string) => id.replace(/ /g, '-');
+
+	const mineFruits = $derived(mine.filter(Boolean) as Fruit[]);
+	const foeFruits = $derived(foe.filter(Boolean) as Fruit[]);
 </script>
 
 <svelte:head><title>kili ale pona</title></svelte:head>
 <svelte:window bind:innerWidth={vw} bind:innerHeight={vh} />
 
 {#snippet fruitIcon(f: Fruit)}
-	<span class="ficon"
-		><img src={img(`fruits/${slug(f.id)}.png`)} alt={f.id} /></span
-	>
+	<span class="ficon"><img src={img(`fruits/${slug(f.id)}.png`)} alt={f.id} /></span>
+{/snippet}
+
+{#snippet mixer(items: Fruit[], cls: string)}
+	<div class="mixer {cls}">
+		<img class="mixer-img" src={img('mixer.png')} alt="" />
+		{#each items as f, i (f.id + '-' + i)}
+			<img
+				class="mixer-fruit"
+				style="left: {50 + (Math.random() - 0.5) * 45}%; top: {30 + (Math.random() - 0.5) * 30}%"
+				src={img(`fruits/${slug(f.id)}.png`)}
+				alt={f.id}
+			/>
+		{/each}
+		<img class="mixer-img mixer-over" src={img('mixer_overlay.png')} alt="" />
+	</div>
 {/snippet}
 
 <div class="viewport">
@@ -171,7 +187,11 @@
 
 			<div class="fruit-slots">
 				{#each mine as s, i (i)}
-					<button class="slot fruit-slot-{i}" onclick={() => s && removeAt(i)}>
+					<button
+					class="slot fruit-slot-{i}"
+					onmouseenter={() => s && (hovered = s)}
+					onclick={() => s && removeAt(i)}
+				>
 						{#if s}
 							<img class="fimg" src={img(`fruits/${slug(s.id)}.png`)} alt={s.id} />
 						{/if}
@@ -182,6 +202,9 @@
 
 		{#if scene === 'sabotage'}
 			<div class="bg"><img src={img('bg-cooking.png')} alt="" /></div>
+
+			{@render mixer(mineFruits, 'mixer-me')}
+			{@render mixer(foeFruits, 'mixer-foe')}
 
 			{#if mineSabotaged}
 				<div class="sab-slot sab-me" title={mineSabotaged.id}>
@@ -339,6 +362,39 @@
 		width: 450px;
 	}
 
+	.mixer {
+		position: absolute;
+		width: 365px;
+		height: 378px;
+	}
+	.mixer-me {
+		left: 140px;
+		top: 420px;
+	}
+	.mixer-foe {
+		left: 780px;
+		top: 420px;
+		transform: scale(1.2);
+	}
+	.mixer-img {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+	}
+	.mixer-over {
+		z-index: 2;
+		pointer-events: none;
+	}
+	.mixer-fruit {
+		position: absolute;
+		width: 160px;
+		height: 160px;
+		object-fit: contain;
+		transform: translate(-50%, -50%) scale(0.5);
+		z-index: 1;
+	}
+
 	.sab-slot {
 		position: absolute;
 		width: 200px;
@@ -354,8 +410,8 @@
 		cursor: pointer;
 	}
 	.sab-me {
-		left: 250px;
-		top: 300px;
+		left: 220px;
+		top: 290px;
 		scale: 0.8;
 	}
 	.sab-foe {
