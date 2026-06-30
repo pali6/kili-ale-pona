@@ -50,7 +50,7 @@
 	const removeAt = (i: number) => (mine[i] = null);
 
 	function finishMix() {
-		const a = aiFill(task);
+		const a = aiFill(task, 10);
 		foe = empty();
 		a.slice(0, SLOTS).forEach((f, i) => (foe[i] = f));
 		mineSabotaged = pick(fruits); // TODO: smarter AI sabotage

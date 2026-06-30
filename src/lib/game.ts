@@ -43,8 +43,22 @@ export function score(mixer: (Fruit | null)[], task: Task): Breakdown {
 	return { colour, synergy: syn, judges, total: colour + syn + judges[0] + judges[1] + judges[2] };
 }
 
-export function aiFill(task: Task): Fruit[] {
-	// TODO: repeat N times, pick best
+export function aiFill(task: Task, nTries: number): Fruit[] {
+	const best: Fruit[] = [];
+	let bestScore = -Infinity;
+	for (let i = 0; i < nTries; i++) {
+		const trial = aiFillInner(task);
+		const trialScore = score(trial, task).total;
+		if (trialScore > bestScore) {
+			bestScore = trialScore;
+			best.length = 0;
+			best.push(...trial);
+		}
+	}
+	return best;
+}
+
+export function aiFillInner(task: Task): Fruit[] {
 	const out: Fruit[] = [];
 	for (const c of task) out.push(pick(fruits.filter((f) => f.color === c)));
 	while (out.length < SLOTS && Math.random() < 0.15) out.push(pick(fruits));
