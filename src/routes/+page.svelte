@@ -391,6 +391,8 @@
 		display: inline-block;
 		vertical-align: middle;
 		line-height: 1;
+		width: 1em;
+		height: 1em;
 	}
 	.ficon img {
 		position: absolute;
