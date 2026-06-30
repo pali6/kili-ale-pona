@@ -100,7 +100,7 @@
 
 {#snippet fruitIcon(f: Fruit)}
 	<span class="ficon"
-		><img src={img(`fruits/${slug(f.id)}.png`)} alt={f.id} /><span class="fe">{f.emoji}</span></span
+		><img src={img(`fruits/${slug(f.id)}.png`)} alt={f.id} /></span
 	>
 {/snippet}
 
@@ -132,7 +132,6 @@
 						onclick={() => addFruit(f)}
 					>
 						<img class="fimg" src={img(`fruits/${slug(f.id)}.png`)} alt={f.id} />
-						<span class="emoji">{f.emoji}</span>
 					</button>
 				{/each}
 			</div>
@@ -175,7 +174,6 @@
 					<button class="slot fruit-slot-{i}" onclick={() => s && removeAt(i)}>
 						{#if s}
 							<img class="fimg" src={img(`fruits/${slug(s.id)}.png`)} alt={s.id} />
-							<span class="emoji">{s.emoji}</span>
 						{/if}
 					</button>
 				{/each}
@@ -205,7 +203,6 @@
 						onclick={() => sabotage(f)}
 					>
 						<img class="fimg" src={img(`fruits/${slug(f.id)}.png`)} alt={f.id} />
-						<span class="emoji">{f.emoji}</span>
 					</button>
 				{/each}
 			</div>
@@ -387,10 +384,6 @@
 		width: calc(100% - 12px);
 		height: calc(100% - 12px);
 		object-fit: contain;
-	}
-	.emoji {
-		font-size: 48px;
-		line-height: 1;
 	}
 
 	.ficon {

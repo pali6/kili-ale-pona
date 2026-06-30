@@ -1,29 +1,29 @@
 export type Color = 'loje' | 'jelo' | 'laso' | 'pimeja' | 'walo';
-export type Fruit = { id: string; emoji: string; color: Color; judges: [number, number, number] };
+export type Fruit = { id: string; color: Color; judges: [number, number, number] };
 
 export const colors: Color[] = ['loje', 'jelo', 'laso', 'pimeja', 'walo'];
 
 export const fruits: Fruit[] = [
-	{ id: 'apple', emoji: '🍎', color: 'loje', judges: [2, -2, 1] },
-	{ id: 'strawberry', emoji: '🍓', color: 'loje', judges: [1, 1, -2] },
-	{ id: 'carrot', emoji: '🥕', color: 'loje', judges: [-2, 1, 2] },
-	{ id: 'cherry', emoji: '🍒', color: 'loje', judges: [1, 2, -1] },
-	{ id: 'banana', emoji: '🍌', color: 'jelo', judges: [1, 1, 0] },
-	{ id: 'lemon', emoji: '🍋', color: 'jelo', judges: [1, -1, 1] },
-	{ id: 'mango', emoji: '🥭', color: 'jelo', judges: [0, -1, 2] },
-	{ id: 'peach', emoji: '🍑', color: 'jelo', judges: [-2, 2, 0] },
-	{ id: 'kiwi', emoji: '🥝', color: 'laso', judges: [0, 1, -1] },
-	{ id: 'cucumber', emoji: '🥒', color: 'laso', judges: [-2, 2, 1] },
-	{ id: 'lime', emoji: '🟢', color: 'laso', judges: [1, 1, 0] },
-	{ id: 'pear', emoji: '🍐', color: 'laso', judges: [2, -2, 1] },
-	{ id: 'blackberry', emoji: '🍇', color: 'pimeja', judges: [1, 0, 1] },
-	{ id: 'black currant', emoji: '⚫', color: 'pimeja', judges: [-2, 1, 2] },
-	{ id: 'black plum', emoji: '🟣', color: 'pimeja', judges: [0, 0, 1] },
-	{ id: 'blueberry', emoji: '🫐', color: 'pimeja', judges: [2, -1, -1] },
-	{ id: 'sugar', emoji: '🍬', color: 'walo', judges: [1, -2, 2] },
-	{ id: 'honeydew melon', emoji: '🍈', color: 'walo', judges: [1, 2, -1] },
-	{ id: 'ginger', emoji: '🫚', color: 'walo', judges: [2, 1, -2] },
-	{ id: 'garlic', emoji: '🧄', color: 'walo', judges: [-1, 0, 1] }
+	{ id: 'apple', color: 'loje', judges: [2, -2, 1] },
+	{ id: 'strawberry', color: 'loje', judges: [1, 1, -2] },
+	{ id: 'carrot', color: 'loje', judges: [-2, 1, 2] },
+	{ id: 'cherry', color: 'loje', judges: [1, 2, -1] },
+	{ id: 'banana', color: 'jelo', judges: [1, 1, 0] },
+	{ id: 'lemon', color: 'jelo', judges: [1, -1, 1] },
+	{ id: 'mango', color: 'jelo', judges: [0, -1, 2] },
+	{ id: 'peach', color: 'jelo', judges: [-2, 2, 0] },
+	{ id: 'kiwi', color: 'laso', judges: [0, 1, -1] },
+	{ id: 'cucumber', color: 'laso', judges: [-2, 2, 1] },
+	{ id: 'lime', color: 'laso', judges: [1, 1, 0] },
+	{ id: 'pear', color: 'laso', judges: [2, -2, 1] },
+	{ id: 'blackberry', color: 'pimeja', judges: [1, 0, 1] },
+	{ id: 'black currant', color: 'pimeja', judges: [-2, 1, 2] },
+	{ id: 'black plum', color: 'pimeja', judges: [0, 0, 1] },
+	{ id: 'blueberry', color: 'pimeja', judges: [2, -1, -1] },
+	{ id: 'sugar', color: 'walo', judges: [1, -2, 2] },
+	{ id: 'honeydew melon', color: 'walo', judges: [1, 2, -1] },
+	{ id: 'ginger', color: 'walo', judges: [2, 1, -2] },
+	{ id: 'garlic', color: 'walo', judges: [-1, 0, 1] }
 ];
 
 export const synergies: { a: string; b: string; v: number }[] = [
